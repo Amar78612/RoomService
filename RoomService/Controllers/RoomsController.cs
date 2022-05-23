@@ -20,5 +20,42 @@ namespace RoomService.Controllers
 
             return Ok(rooms);
         }
+        [HttpGet]
+        public IActionResult Get(int id)
+        {
+            
+            var room = rooms.SingleOrDefault(x => x.RoomId == id);
+            if (room == null)
+            {
+                return NotFound("No room Found");
+            }
+            return Ok(room);
+        }
+        [HttpPost]
+        public IActionResult AddRoom(Room room)
+        {
+            rooms.Add(room);
+            if (rooms.Count == 0)
+            {
+                return NotFound("No List Found");
+            }
+            return Ok(rooms);
+        }
+        [HttpDelete]
+
+        public IActionResult Delete(int id)
+        {
+            var room = rooms.SingleOrDefault(x => x.RoomId == id);
+            if (room == null)
+            {
+                return NotFound("No room Found");
+            }
+            rooms.Remove(  room);
+            if (rooms.Count == 0)
+            {
+                return NotFound("No List Found");
+            }
+            return Ok(rooms);
+        }
     }
 }
